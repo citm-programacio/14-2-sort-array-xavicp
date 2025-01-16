@@ -2,11 +2,52 @@
 //
 
 #include <iostream>
+#include <vector>
+#include <limits>
+using namespace std;
 
-int main()
-{
-    std::cout << "Hello World!\n";
+vector<int> basicSort(vector<int> arr) {
+    vector<int> sortedArray;
+
+    // Mientras queden elementos válidos en el arreglo original
+    while (sortedArray.size() < arr.size()) {
+        // Encontrar el índice del elemento más pequeño
+        int minIndex = 0;
+        for (int i = 1; i < arr.size(); i++) {
+            if (arr[i] < arr[minIndex]) {
+                minIndex = i;
+            }
+        }
+
+        // Agregar el elemento más pequeño al arreglo ordenado
+        sortedArray.push_back(arr[minIndex]);
+
+        // Marcar el elemento como "procesado"
+        arr[minIndex] = numeric_limits<int>::max();
+    }
+
+    return sortedArray;
 }
+
+int main() {
+    vector<int> originalArray = {5, 3, 8, 1, 2};
+    vector<int> result = basicSort(originalArray);
+
+    cout << "Arreglo original: ";
+    for (int num : originalArray) {
+        cout << num << " ";
+    }
+    cout << endl;
+
+    cout << "Arreglo ordenado: ";
+    for (int num : result) {
+        cout << num << " ";
+    }
+    cout << endl;
+
+    return 0;
+}
+
 
 // Ejecutar programa: Ctrl + F5 o menú Depurar > Iniciar sin depurar
 // Depurar programa: F5 o menú Depurar > Iniciar depuración
